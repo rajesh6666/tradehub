@@ -1,0 +1,58 @@
+networks:
+  app-network:
+    driver: bridge
+
+services:
+  postgres:
+    image: postgres:latest
+    restart: always
+    volumes:
+      - db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: adonis
+      POSTGRES_PASSWORD: adonis
+      POSTGRES_DB: adonis_db
+    expose:
+      - 5432
+    ports:
+      - 5432:5432
+    networks:
+      - app-network
+
+  api:
+    restart: always
+    build:
+      context: ./api
+      target: build
+    ports:
+      - 3333:3333
+    env_file:
+      - ./api/.env
+    environment:
+      - DB_HOST=postgres
+      - DB_USER=adonis
+      - DB_PASSWORD=adonis
+      - DB_DATABASE=adonis_db
+    volumes:
+      - ./api:/app
+      # - /app/node_modules
+    command: node ace serve --hmr
+    networks:
+      - app-network
+    depends_on:
+      - postgres
+    stdin_open: true
+    
+  app:
+    build:
+      context: ./app
+    ports:
+      - 5173:5173
+    volumes:
+      - ./app:/app
+      - /app/node_modules
+    networks:
+      - app-network
+
+volumes:
+  db:

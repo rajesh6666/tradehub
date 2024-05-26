@@ -12,8 +12,8 @@ This is a full-stack application built with Vue.js 3 for the frontend and Node.j
 1. Clone the repository:
 
 ```
-git clone https://github.com/your-username/your-repo.git
-cd your-repo
+git clone https://github.com/rajesh6666/tradehub
+cd tradehub
 ```
 
 2. Build and run the containers:

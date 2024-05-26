@@ -93,6 +93,6 @@ The production-ready files will be generated in the respective `dist` or `build`
 
 ## Docker Compose Commands
 
-- `docker-compose up --build`: Build and start the containers.
+- `docker compose up -d`: Build and start the containers.
 - `docker-compose down`: Stop and remove the containers.
 - `docker-compose logs`: View the logs for the containers.
